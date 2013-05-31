@@ -15,23 +15,48 @@ public class Command {
     
     private String _verbo;
     private String _sustantivo;
+    private String _sustantivo2;
+    
+    /** 
+     * Constructor para dar soporte a comandos de tres palabras
+     * @param verbo
+     * @param sustantivo
+     * @param sustantivo2 
+     */
+    public Command(String verbo,String sustantivo, String sustantivo2)
+    {
+        _verbo = verbo;
+        _sustantivo = sustantivo;
+        _sustantivo2 = sustantivo2;
+    }
     
     public Command(String verbo,String sustantivo)
     {
         _verbo = verbo;
         _sustantivo = sustantivo;
+        _sustantivo2 = null;
     }
     
     public Command(String verbo)
     {
         _verbo = verbo;
         _sustantivo = null;
+        _sustantivo2 = null;
     }
     
     public boolean tieneSustantivo()
     {
         // si sustantivo es distinto de null hay sustantivo
         if (_sustantivo != null)
+            return true;
+        
+        return false;
+    }
+    
+    public boolean tieneSustantivo2()
+    {
+        // si sustantivo2 es distinto de null hay sustantivo2
+        if (_sustantivo2 != null)
             return true;
         
         return false;
@@ -47,5 +72,11 @@ public class Command {
     public String getSustantivo()
     {
         return _sustantivo;
+    }
+    
+    // devuelve el sustantivo2 del comando
+    public String getSustantivo2()
+    {
+        return _sustantivo2;
     }
 }

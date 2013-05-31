@@ -30,7 +30,7 @@ public class Parser
      */
     public Command getComando()
     {
-        String entradaUsuario,palabra1 = null,palabra2 = null;
+        String entradaUsuario,palabra1 = null,palabra2 = null, palabra3 = null;
         
         System.out.print(" > ");
         
@@ -45,22 +45,35 @@ public class Parser
             if (generadorDeToken.hasNext())
             {
                 palabra2 = generadorDeToken.next();
+                
+                if (generadorDeToken.hasNext())
+                {
+                    palabra3 = generadorDeToken.next();
+                }
             }
         }
         
-        // si la palabra1 es valida
-        if (CommandWords.esValida(palabra1))
+        if (palabra1!= null)
         {
-            if (palabra2 == null) // si no hay palabra2
-                return new Command(palabra1);
-             // si si que hay palabra2 compruebo que sea valida
-            else if (CommandWords.esValida(palabra2))   
-                return new Command(palabra1,palabra2);    
+            // si la palabra1 es valida
+            if (CommandWords.esValida(palabra1))
+            {
+                if (palabra2 == null) // si no hay palabra2
+                    return new Command(palabra1);
+                 // si si que hay palabra2 compruebo que sea valida
+                else if (CommandWords.esValida(palabra2)) 
+                {
+                    if (palabra3 == null) // si no hay palabra3
+                        return new Command(palabra1,palabra2);
+                    else if (CommandWords.esValida(palabra3)) 
+                        return new Command(palabra1,palabra2,palabra3);            
+                }
+
+            }
         }
         
-        
-        // si la palabra1 no es valida, ya todo el comando es incorrecto  
-        return new Command(null,null); 
+        // el comando no es valida, ya todo el comando es incorrecto  
+        return new Command(null,null,null); 
             
     }
     

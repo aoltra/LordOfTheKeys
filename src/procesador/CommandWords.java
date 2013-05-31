@@ -13,7 +13,7 @@ public class CommandWords
      private static final String [] palabrasValidas =
      { "ir", "salir", "coger", "ayuda", "norte", "sur",
        "este", "oeste", "ver", "tiza", "llave", "dejar",
-       "inventario"};
+       "inventario", "abrir", "cerrar", "usar", "puerta"};
      
    //  public CommandWords() {}
      

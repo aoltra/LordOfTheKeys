@@ -98,11 +98,16 @@ public class Game
     {
         String verbo = comando.getVerbo();
         String sustantivo = comando.getSustantivo();
+        String sustantivo2 = comando.getSustantivo2();
         
         // lo paso todo a minusculas
         verbo = verbo.toLowerCase();
         if (sustantivo != null)
             sustantivo = sustantivo.toLowerCase();
+        
+        if (sustantivo2 != null)
+            sustantivo2 = sustantivo2.toLowerCase();
+        
         
         // el usuario quiere salir
         if (verbo.equals("salir") == true )
@@ -135,6 +140,10 @@ public class Game
             {
                 System.out.println("Ir? si, pero a donde quieres i???");
             }
+            else if (sustantivo2 != null)
+            {
+                System.out.println("Ein? mucha información. No te entiendo");
+            }
             else if (sustantivo.equals("norte"))
             {
                 if (_actor.getFila()==0)
@@ -145,7 +154,8 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
-                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.NORTE)==false)
+                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionActual,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)
                 {
                      System.out.println("Hay una puerta cerrada.");
                 }
@@ -153,8 +163,9 @@ public class Game
                 {
                     Room habitacionNorte = _mapa.plano[_actor.getFila()-1]
                                     [_actor.getColumna()];
-                    
-                    if (comprueboPuertas(habitacionNorte,Room.PuntosCardinales.SUR)==false)
+                        
+                    if (comprueboPuertas(habitacionNorte,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionNorte,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)
                     {
                         System.out.println("Hay una puerta cerrada.");
                     }
@@ -174,7 +185,8 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
-                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.SUR)==false)
+                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionActual,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)    
                 {
                      System.out.println("Hay una puerta cerrada.");
                 }
@@ -183,7 +195,9 @@ public class Game
                     Room habitacionSur = _mapa.plano[_actor.getFila()+1]
                                     [_actor.getColumna()];
                     
-                    if (comprueboPuertas(habitacionSur,Room.PuntosCardinales.NORTE)==false)
+                        
+                    if (comprueboPuertas(habitacionSur,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionSur,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)    
                     {
                         System.out.println("Hay una puerta cerrada.");
                     }
@@ -202,7 +216,8 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
-                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.ESTE)==false)
+                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionActual,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)    
                 {
                      System.out.println("Hay una puerta cerrada.");
                 }
@@ -211,7 +226,9 @@ public class Game
                     Room habitacionEste = _mapa.plano[_actor.getFila()]
                                     [_actor.getColumna()+1];
                     
-                    if (comprueboPuertas(habitacionEste,Room.PuntosCardinales.OESTE)==false)
+                    
+                    if (comprueboPuertas(habitacionEste,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionEste,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)    
                     {
                         System.out.println("Hay una puerta cerrada.");
                     }
@@ -229,7 +246,8 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
-                 else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.OESTE)==false)
+                if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                    comprueboPuertas(habitacionActual,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)        
                 {
                      System.out.println("Hay una puerta cerrada.");
                 }
@@ -238,7 +256,9 @@ public class Game
                     Room habitacionOeste = _mapa.plano[_actor.getFila()]
                                     [_actor.getColumna()-1];
                     
-                    if (comprueboPuertas(habitacionOeste,Room.PuntosCardinales.ESTE)==false)
+                    
+                    if (comprueboPuertas(habitacionOeste,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE ||
+                        comprueboPuertas(habitacionOeste,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_SIN_LLAVE)        
                     {
                         System.out.println("Hay una puerta cerrada.");
                     }
@@ -298,8 +318,39 @@ public class Game
             _actor.deja(sustantivo,habitacion);
         }
         
-        
-        
+        if (verbo.equals("abrir") == true )
+        {
+            if (sustantivo == null)    
+            {
+                System.out.println("¿Que quieres abrir?");
+            }
+            else if (sustantivo.equals("puerta")== true) // con la puerta me hace falta otro sustantivo
+            {
+                if (sustantivo2 == null)    
+                {
+                    System.out.println("¿ La puerta de qué direccion ?");
+                }
+                else
+                {
+                    Room habitacion = _mapa.plano[_actor.getFila()][_actor.getColumna()]; 
+                    if (sustantivo2.equals("norte") == true)
+                    {
+                        if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                        {
+                            System.out.println("Esta cerrada con llave.");  
+                        }
+                                                
+                        if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.ABIERTA)        
+                        {
+                            System.out.println("Ya esta abierta.");  
+                        }
+
+                    
+                    }
+                        
+                }
+            }
+        }
         
         return false;
         
@@ -364,11 +415,8 @@ public class Game
      * Comprueba si las puerta me dejan pasar o no
      * @return true si puedo pasar y false si NO puedo pasar
      */
-    private boolean comprueboPuertas(Room habitacion, Room.PuntosCardinales direccion)
+    /*private boolean comprueboPuertas(Room habitacion, Room.PuntosCardinales direccion)
     {
-    
- 
-
         Door puerta = habitacion.getDoor(direccion);
 
         if (puerta!=null)
@@ -384,6 +432,30 @@ public class Game
         
         
         return true;
+    }
+    */
+    
+    
+    private Door.EstadosPuertas comprueboPuertas(Room habitacion, Room.PuntosCardinales direccion)
+    {
+        Door puerta = habitacion.getDoor(direccion);
+        
+        if (puerta!=null)
+        {
+            // hay puerta, asi que comprobamos si esta abierta
+            if (puerta.estaAbierto() == true) // esta cerrada
+            {
+                return Door.EstadosPuertas.ABIERTA;
+            }
+            else    // esta cerrada
+            {
+                if (puerta.getConLlave() == true) return Door.EstadosPuertas.CERRADA_CON_LLAVE;
+                else return Door.EstadosPuertas.CERRADA_SIN_LLAVE;
+            }
+                 
+        }
+        
+        return Door.EstadosPuertas.SINPUERTA;
     }
     
     
