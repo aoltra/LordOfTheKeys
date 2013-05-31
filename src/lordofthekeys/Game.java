@@ -174,8 +174,23 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
+                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.SUR)==false)
+                {
+                     System.out.println("Hay una puerta cerrada.");
+                }
                 else
-                    _actor.setFila(_actor.getFila()+1);           
+                {
+                    Room habitacionSur = _mapa.plano[_actor.getFila()+1]
+                                    [_actor.getColumna()];
+                    
+                    if (comprueboPuertas(habitacionSur,Room.PuntosCardinales.NORTE)==false)
+                    {
+                        System.out.println("Hay una puerta cerrada.");
+                    }
+                    else
+                        _actor.setFila(_actor.getFila()+1);
+                }
+                             
             }
             else if (sustantivo.equals("este"))
             {
@@ -187,8 +202,22 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
+                else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.ESTE)==false)
+                {
+                     System.out.println("Hay una puerta cerrada.");
+                }
                 else
-                    _actor.setColumna(_actor.getColumna()+1);  
+                {
+                    Room habitacionEste = _mapa.plano[_actor.getFila()]
+                                    [_actor.getColumna()+1];
+                    
+                    if (comprueboPuertas(habitacionEste,Room.PuntosCardinales.OESTE)==false)
+                    {
+                        System.out.println("Hay una puerta cerrada.");
+                    }
+                    else
+                        _actor.setColumna(_actor.getColumna()+1);
+                }  
             }
             else if (sustantivo.equals("oeste"))
             {
@@ -200,8 +229,22 @@ public class Game
                 {
                      System.out.println("No puedo.");
                 }
+                 else if (comprueboPuertas(habitacionActual,Room.PuntosCardinales.OESTE)==false)
+                {
+                     System.out.println("Hay una puerta cerrada.");
+                }
                 else
-                    _actor.setColumna(_actor.getColumna()-1);  
+                {
+                    Room habitacionOeste = _mapa.plano[_actor.getFila()]
+                                    [_actor.getColumna()-1];
+                    
+                    if (comprueboPuertas(habitacionOeste,Room.PuntosCardinales.ESTE)==false)
+                    {
+                        System.out.println("Hay una puerta cerrada.");
+                    }
+                    else
+                        _actor.setColumna(_actor.getColumna()-1);
+                }  
             }
             else
                 System.out.println("Lo siento, no conozco esa dirección");
