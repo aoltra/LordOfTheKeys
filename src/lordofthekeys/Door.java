@@ -30,8 +30,11 @@ public class Door  implements IAbrible {
     }
     
     @Override
-    public boolean abrir() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean abrir() 
+    {
+        _abierta=true;
+        System.out.println("He abierto la puerta.");
+        return true;
     }
 
     @Override

@@ -335,17 +335,48 @@ public class Game
                     Room habitacion = _mapa.plano[_actor.getFila()][_actor.getColumna()]; 
                     if (sustantivo2.equals("norte") == true)
                     {
-                        if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                        Door puerta = getPuerta(habitacion,Room.PuntosCardinales.NORTE);
+                        
+                        // tien la limitacion de que no puedn haber puertas dobles
+                        if (puerta!=null)   // si hay puerta la norte
                         {
-                            System.out.println("Esta cerrada con llave.");  
-                        }
-                                                
-                        if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.ABIERTA)        
+                            if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+                          
+                                puerta.abrir();
+                            }
+                        }   
+                        else  
                         {
-                            System.out.println("Ya esta abierta.");  
-                        }
+                            
+                            Room habitacionN = _mapa.plano[_actor.getFila()-1][_actor.getColumna()]; 
+                            Door puertaS = getPuerta(habitacionN,Room.PuntosCardinales.SUR);
 
-                    
+                            if (comprueboPuertas(habitacionN,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_CON_LLAVE) 
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacionN,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+
+                                puertaS.abrir();
+                            }  
+                        }
+                        
+                        
+                        
                     }
                         
                 }
@@ -443,7 +474,7 @@ public class Game
         if (puerta!=null)
         {
             // hay puerta, asi que comprobamos si esta abierta
-            if (puerta.estaAbierto() == true) // esta cerrada
+            if (puerta.estaAbierto() == true) // esta abierta
             {
                 return Door.EstadosPuertas.ABIERTA;
             }
@@ -459,6 +490,16 @@ public class Game
     }
     
     
+    /**
+     * Devuelve una puerta de un habitacion en una direccion
+     * @param habitacion
+     * @param direccion
+     * @return 
+     */
+    private Door getPuerta(Room habitacion, Room.PuntosCardinales direccion)
+    {
+        return habitacion.getDoor(direccion);
+    }
 }
 
 
