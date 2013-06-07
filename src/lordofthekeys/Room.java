@@ -6,6 +6,7 @@ package lordofthekeys;
 
 import java.util.ArrayList;
 import lordofthekeys.interfaces.ICogible;
+import lordofthekeys.interfaces.IUtilizable;
 
 /**
  *
@@ -123,6 +124,20 @@ public class Room {
         return false;
     }
     
+    
+    public boolean estaCosa(IUtilizable cosa)
+    {
+        for (int i =0;i<_cosas.size();i++)   
+        {
+            if ((Stuff)_cosas.get(i) instanceof IUtilizable)
+                if ((Stuff)_cosas.get(i)== cosa)
+                    return true;  // lo he encontrado!!
+        }
+        
+        
+        return false;
+    }
+    
     /**
      * Comprueba si una cosa cogible esta en la habitación
      * @param cosa cadena que identifica la cosa que voy a comprobar si esta
@@ -170,4 +185,22 @@ public class Room {
      */
     public void eliminaCosa(int i) { _cosas.remove(i); }
    
+    
+    /**
+     * comprueba todas las puertas de la habitacion y las de las habotaciones de los lados para ver si coincide 
+     * con la que se me pasa
+     * @param puerta
+     * @return true si encuntra la puerta,false en caso contrario
+     */
+    public boolean puertaAbrible(Door puerta)
+    {
+        for (int i=0;i<4;i++)
+        {
+            if (_puertas[i]==puerta)
+                    return true;
+        
+        }
+        
+        return false;
+    }
 }

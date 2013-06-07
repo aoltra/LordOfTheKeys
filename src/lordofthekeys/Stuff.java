@@ -29,5 +29,7 @@ public class Stuff
     }
     
     public String getNombre() { return _nombre; }
+    
+    public IUtilizable getUtilizable() { return _utilizable; }
    
 }

@@ -4,6 +4,7 @@
  */
 package lordofthekeys;
 
+import lordofthekeys.interfaces.IUsable;
 import procesador.Command;
 import procesador.CommandWords;
 import procesador.Parser;
@@ -506,20 +507,48 @@ public class Game
                                 puertaO.abrir();
                             }  
                         }
-                }
+                    }
                 }   
             }
             
             if (verbo.equals("usar") == true )
             {
-                if (_actor.estaCosaInventario(sustantivo2)== false)
+                Stuff cosa = _actor.getCosa(sustantivo2);
+                
+                if (cosa == null)
                 {
                     System.out.println("No puedes usar cosas que no tienes: " + sustantivo2);
                 }
+                else if (cosa instanceof IUsable == false)
+                {
+                    System.out.println("No se puede usar");
+                }
                 else
                 {
-                
-                    
+                    // compruebo si esa cosa la puedo usar con algo de la habitacion en la que estoy
+                    Room habitacion = _mapa.plano[_actor.getFila()][_actor.getColumna()]; 
+                     
+                    // se usa con el objeto que sea que no sea una puerta
+                    if (habitacion.estaCosa(cosa.getUtilizable()) == true)
+                    {
+                        ((IUsable)cosa).usar();
+                    }
+                    else
+                    {
+                        // compruebo las puertas, tanto las de la habotacion con las de la habitaciones de alrdedor
+                        if (cosa.getUtilizable() instanceof Door)   // si es una puerta
+                        {
+                            if (habitacion.puertaAbrible((Door)cosa.getUtilizable()))
+                            {
+                            
+                            
+                            }
+                            else
+                                System.out.println("No se puede usar");            
+                        }
+                        
+                        
+                    }
                 
                 
                 

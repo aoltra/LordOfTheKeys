@@ -160,18 +160,17 @@ public class Actor
     }
     
     /**
-     * Nos dice si una cosa esta en el inventario
+     * Devuelve un objeto cosa que esta enel inventario. Si no esta devuelve null
      * @return 
      */
-    public boolean estaCosaInventario(String nombreCosa)
+    public Stuff getCosa(String nombreCosa)
     {
-        
-        for (int i =0;i<_inventario.size();i++)
+         for (int i =0;i<_inventario.size();i++)
         {
             if (_inventario.get(i).getNombre().equals(nombreCosa))
-                return true;
+                return _inventario.get(i);
         }
         
-        return false;
+        return null;
     }
 }
