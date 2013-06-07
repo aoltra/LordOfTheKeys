@@ -79,7 +79,7 @@ public class Game
      
         
         /// creamos las cosas del juego
-        Key llave = new Key();
+        Key llave = new Key(puertaDepartamento);
         Chalk tiza = new Chalk();
         
         aula1.setCosa(tiza);
@@ -172,7 +172,6 @@ public class Game
                     else
                         _actor.setFila(_actor.getFila()-1);
                 }
-                    
                     
             }
             else if (sustantivo.equals("sur"))
@@ -337,7 +336,7 @@ public class Game
                     {
                         Door puerta = getPuerta(habitacion,Room.PuntosCardinales.NORTE);
                         
-                        // tien la limitacion de que no puedn haber puertas dobles
+                        // tiene la limitacion de que no puedn haber puertas dobles
                         if (puerta!=null)   // si hay puerta la norte
                         {
                             if (comprueboPuertas(habitacion,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
@@ -375,12 +374,159 @@ public class Game
                             }  
                         }
                         
+                    }
+                    
+                    if (sustantivo2.equals("sur") == true)
+                    {
+                        Door puerta = getPuerta(habitacion,Room.PuntosCardinales.SUR);
                         
+                        // tiene la limitacion de que no puedn haber puertas dobles
+                        if (puerta!=null)   // si hay puerta la norte
+                        {
+                            if (comprueboPuertas(habitacion,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacion,Room.PuntosCardinales.SUR) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+                          
+                                puerta.abrir();
+                            }
+                        }   
+                        else  
+                        {
+                            
+                            Room habitacionS = _mapa.plano[_actor.getFila()+1][_actor.getColumna()]; 
+                            Door puertaN = getPuerta(habitacionS,Room.PuntosCardinales.NORTE);
+
+                            if (comprueboPuertas(habitacionS,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE) 
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacionS,Room.PuntosCardinales.NORTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+
+                                puertaN.abrir();
+                            }  
+                        }
                         
                     }
+                    
+                    
+                    if (sustantivo2.equals("este") == true)
+                    {
+                        Door puerta = getPuerta(habitacion,Room.PuntosCardinales.ESTE);
                         
+                        // tiene la limitacion de que no puedn haber puertas dobles
+                        if (puerta!=null)   // si hay puerta la norte
+                        {
+                            if (comprueboPuertas(habitacion,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacion,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+                          
+                                puerta.abrir();
+                            }
+                        }   
+                        else  
+                        {
+                            
+                            Room habitacionE = _mapa.plano[_actor.getFila()][_actor.getColumna()+1]; 
+                            Door puertaE = getPuerta(habitacionE,Room.PuntosCardinales.OESTE);
+
+                            if (comprueboPuertas(habitacionE,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE) 
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacionE,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+                                puertaE.abrir();
+                            }  
+                        }
+                       
+                    }
+                        
+
+
+                    if (sustantivo2.equals("oeste") == true)
+                    {
+                        Door puerta = getPuerta(habitacion,Room.PuntosCardinales.OESTE);
+
+                        // tiene la limitacion de que no puedn haber puertas dobles
+                        if (puerta!=null)   // si hay puerta la norte
+                        {
+                            if (comprueboPuertas(habitacion,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE)        
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacion,Room.PuntosCardinales.OESTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+
+                                puerta.abrir();
+                            }
+                        }   
+                        else  
+                        {
+
+                            Room habitacionO = _mapa.plano[_actor.getFila()][_actor.getColumna()+1]; 
+                            Door puertaO = getPuerta(habitacionO,Room.PuntosCardinales.ESTE);
+
+                            if (comprueboPuertas(habitacionO,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.CERRADA_CON_LLAVE) 
+                            {
+                                System.out.println("Esta cerrada con llave.");  
+                            }
+                            else if (comprueboPuertas(habitacionO,Room.PuntosCardinales.ESTE) == Door.EstadosPuertas.ABIERTA)        
+                            {
+                                System.out.println("Ya esta abierta.");  
+                            }
+                            else 
+                            {
+                                puertaO.abrir();
+                            }  
+                        }
                 }
+                }   
             }
+            
+            if (verbo.equals("usar") == true )
+            {
+                if (_actor.estaCosaInventario(sustantivo2)== false)
+                {
+                    System.out.println("No puedes usar cosas que no tienes: " + sustantivo2);
+                }
+                else
+                {
+                
+                    
+                
+                
+                
+                }
+                
+            }
+            
         }
         
         return false;

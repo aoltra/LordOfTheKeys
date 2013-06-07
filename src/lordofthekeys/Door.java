@@ -5,12 +5,13 @@
 package lordofthekeys;
 
 import lordofthekeys.interfaces.IAbrible;
+import lordofthekeys.interfaces.IUtilizable;
 
 /**
  *
  * @author aoltra
  */
-public class Door  implements IAbrible {
+public class Door  implements IAbrible, IUtilizable {
     
     private boolean _abierta;
     private boolean _conLlave;     // true significa
@@ -18,6 +19,11 @@ public class Door  implements IAbrible {
                            // abrirla
     
     private boolean _yaAbierta;    // si la puerta estaba cerrada con llave y se ha abierto
+
+    @Override
+    public boolean utilizar() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
   
     public enum EstadosPuertas { SINPUERTA, ABIERTA, CERRADA_SIN_LLAVE, CERRADA_CON_LLAVE};
     

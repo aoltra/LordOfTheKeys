@@ -6,6 +6,7 @@ package lordofthekeys;
 
 import lordofthekeys.interfaces.ICogible;
 import lordofthekeys.interfaces.IUsable;
+import lordofthekeys.interfaces.IUtilizable;
 
 /**
  *
@@ -16,6 +17,11 @@ public class Key extends Stuff implements ICogible, IUsable
     public Key()
     {
         super("llave");
+    }
+    
+    public Key(IUtilizable util)
+    {
+        super("llave",util);
     }
 
     @Override

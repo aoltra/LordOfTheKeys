@@ -158,4 +158,20 @@ public class Actor
             System.out.println(_inventario.get(i).getNombre());
         }
     }
+    
+    /**
+     * Nos dice si una cosa esta en el inventario
+     * @return 
+     */
+    public boolean estaCosaInventario(String nombreCosa)
+    {
+        
+        for (int i =0;i<_inventario.size();i++)
+        {
+            if (_inventario.get(i).getNombre().equals(nombreCosa))
+                return true;
+        }
+        
+        return false;
+    }
 }

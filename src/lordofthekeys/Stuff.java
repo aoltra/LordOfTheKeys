@@ -4,6 +4,8 @@
  */
 package lordofthekeys;
 
+import lordofthekeys.interfaces.IUtilizable;
+
 /**
  * Clase que definira las cosas que existen en las 
  * habitaciones
@@ -13,10 +15,17 @@ package lordofthekeys;
 public class Stuff 
 {
     private String _nombre;
+    private IUtilizable _utilizable;
     
     public Stuff(String nombre)
     {
         _nombre = nombre;
+    }
+    
+    public Stuff(String nombre,IUtilizable util)
+    {
+        _nombre = nombre;
+        _utilizable = util;
     }
     
     public String getNombre() { return _nombre; }
