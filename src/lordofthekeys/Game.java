@@ -25,6 +25,7 @@ public class Game
         _parser = new Parser();
         creaMapa();
         _actor = new Actor(1,1);
+        
     }
     
     /**
@@ -82,9 +83,13 @@ public class Game
         /// creamos las cosas del juego
         Key llave = new Key(puertaDepartamento);
         Chalk tiza = new Chalk();
+        Examen examen  = new Examen();
         
         aula1.setCosa(tiza);
         aula1.setCosa(llave);
+        departamento.setCosa(examen);
+        
+       
         
     }
     
@@ -299,6 +304,9 @@ public class Game
                     {
                         // por fin se la añadimos al jugador
                         _actor.addCosaInventario(cosa);
+                        
+                        if (sustantivo.equals("examen"))
+                          return true;  
                     }
                 }
                 else
@@ -515,8 +523,7 @@ public class Game
         if (verbo.equals("usar") == true )
         {
             Stuff cosa = _actor.getCosa(sustantivo);
-            Stuff cosa2 = _actor.getCosa(sustantivo2);
-     //      System.out.println("cacasdenes: " + cosa);
+           
             if (sustantivo==null)
             {
                 System.out.println("¿que use que?");
@@ -563,6 +570,12 @@ public class Game
         
     }
     
+    /**
+     * Devuelve verdero si la puerta es abrible por la llave que tengo
+     * @param habitacion
+     * @param puerta
+     * @return 
+     */
     private boolean puertaAbrible(Room habitacion,Door puerta)
     {
         Room habitacionTmp;

@@ -26,7 +26,8 @@ public class Key extends Stuff implements ICogible, IUsable
 
     @Override
     public boolean coger() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("Esta un poco oxidada");
+        return true;
     }
 
     @Override

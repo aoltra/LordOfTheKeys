@@ -5,6 +5,7 @@
 package lordofthekeys;
 
 import java.util.ArrayList;
+import lordofthekeys.interfaces.ICogible;
 
 /**
  *
@@ -101,6 +102,8 @@ public class Actor
                 
                 // elimino el objeto cosa de la lista de cosas
                 habitacion.eliminaCosa(i);
+                
+                ((ICogible)objetoCosa).coger();
                 
                 // devuelvo el objeto
                 return objetoCosa;  
