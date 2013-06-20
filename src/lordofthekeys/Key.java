@@ -31,7 +31,9 @@ public class Key extends Stuff implements ICogible, IUsable
 
     @Override
     public boolean usar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("Abriendo "+ ((Door)_utilizable).toString());
+        ((Door)_utilizable).quitarLlave();
+        return true;
     }
     
     

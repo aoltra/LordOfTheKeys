@@ -15,7 +15,7 @@ import lordofthekeys.interfaces.IUtilizable;
 public class Stuff 
 {
     private String _nombre;
-    private IUtilizable _utilizable;
+    protected IUtilizable _utilizable;
     
     public Stuff(String nombre)
     {

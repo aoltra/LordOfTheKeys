@@ -203,4 +203,17 @@ public class Room {
         
         return false;
     }
+    
+    /**
+     * Comprueba si una puerta en concreto de una habitacion es abrirble
+     * @param puerta
+     * @return 
+     */
+    public boolean puertaAbrible(Door puerta,Room.PuntosCardinales dir)
+    {
+        if (_puertas[dir.ordinal()] == puerta)
+            return true;
+        
+        return false;
+    }
 }

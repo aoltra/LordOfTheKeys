@@ -84,7 +84,7 @@ public class Game
         Chalk tiza = new Chalk();
         
         aula1.setCosa(tiza);
-        aula2.setCosa(llave);
+        aula1.setCosa(llave);
         
     }
     
@@ -509,58 +509,89 @@ public class Game
                         }
                     }
                 }   
-            }
-            
-            if (verbo.equals("usar") == true )
+            } 
+        }
+        
+        if (verbo.equals("usar") == true )
+        {
+            Stuff cosa = _actor.getCosa(sustantivo);
+            Stuff cosa2 = _actor.getCosa(sustantivo2);
+     //      System.out.println("cacasdenes: " + cosa);
+            if (sustantivo==null)
             {
-                Stuff cosa = _actor.getCosa(sustantivo2);
-                
-                if (cosa == null)
+                System.out.println("¿que use que?");
+            } 
+            else if (cosa == null)
+            {
+                System.out.println("No puedes usar cosas que no tienes: " + sustantivo);
+            }
+            else if ((cosa instanceof IUsable) == false)
+            {
+                System.out.println("No se puede usar");
+            }
+            else
+            {
+                // compruebo si esa cosa la puedo usar con algo de la habitacion en la que estoy
+                Room habitacion = _mapa.plano[_actor.getFila()][_actor.getColumna()]; 
+
+                // se usa con el objeto que sea que no sea una puerta
+                if (habitacion.estaCosa(cosa.getUtilizable()) == true)
                 {
-                    System.out.println("No puedes usar cosas que no tienes: " + sustantivo2);
-                }
-                else if (cosa instanceof IUsable == false)
-                {
-                    System.out.println("No se puede usar");
+                    ((IUsable)cosa).usar();
                 }
                 else
                 {
-                    // compruebo si esa cosa la puedo usar con algo de la habitacion en la que estoy
-                    Room habitacion = _mapa.plano[_actor.getFila()][_actor.getColumna()]; 
-                     
-                    // se usa con el objeto que sea que no sea una puerta
-                    if (habitacion.estaCosa(cosa.getUtilizable()) == true)
+                    // compruebo las puertas, tanto las de la habitacion con las de la habitaciones de alrededor
+                    if (cosa.getUtilizable() instanceof Door)   // si es una puerta
                     {
-                        ((IUsable)cosa).usar();
-                    }
-                    else
-                    {
-                        // compruebo las puertas, tanto las de la habotacion con las de la habitaciones de alrdedor
-                        if (cosa.getUtilizable() instanceof Door)   // si es una puerta
+                        if (puertaAbrible(habitacion,(Door)cosa.getUtilizable()))
                         {
-                            if (habitacion.puertaAbrible((Door)cosa.getUtilizable()))
-                            {
-                            
-                            
-                            }
-                            else
-                                System.out.println("No se puede usar");            
+                             ((IUsable)cosa).usar();
                         }
-                        
-                        
+                        else
+                            System.out.println("No hay puerta para esa llave");            
                     }
-                
-                
-                
+
+
                 }
-                
+
             }
-            
+
         }
         
         return false;
         
     }
+    
+    private boolean puertaAbrible(Room habitacion,Door puerta)
+    {
+        Room habitacionTmp;
+        
+        if (habitacion.puertaAbrible(puerta))
+        {
+            return true;
+        }
+        
+        // este
+        habitacionTmp = _mapa.plano[_actor.getFila()][_actor.getColumna()+1]; 
+        
+        if (habitacionTmp != null && habitacionTmp.puertaAbrible(puerta,Room.PuntosCardinales.OESTE)) return true;
+        
+        // oeste
+        habitacionTmp = _mapa.plano[_actor.getFila()][_actor.getColumna()-1]; 
+        if (habitacionTmp != null && habitacionTmp.puertaAbrible(puerta,Room.PuntosCardinales.ESTE)) return true;
+    
+        // norte
+        habitacionTmp = _mapa.plano[_actor.getFila()-1][_actor.getColumna()]; 
+        if (habitacionTmp != null && habitacionTmp.puertaAbrible(puerta,Room.PuntosCardinales.SUR)) return true;
+        
+        // sur
+        habitacionTmp = _mapa.plano[_actor.getFila()+1][_actor.getColumna()]; 
+        if (habitacionTmp != null && habitacionTmp.puertaAbrible(puerta,Room.PuntosCardinales.NORTE)) return true;
+    
+        return false;
+    }
+    
     
     /**
      * Pone en marcha el juego

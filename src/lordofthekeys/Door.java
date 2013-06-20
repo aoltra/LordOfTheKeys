@@ -61,5 +61,11 @@ public class Door  implements IAbrible, IUtilizable {
         
         return false;
     }
+    
+    public void quitarLlave()
+    {
+        _conLlave=false;
+   }
+    
 }
 
